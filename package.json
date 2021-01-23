@@ -2,13 +2,19 @@
   "name": "youtube-image-capture",
   "version": "0.1.0",
   "private": true,
+  "author": "S_yu_yu_yu",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "puppeteer": "node puppeteer.js"
   },
   "dependencies": {
+    "@types/puppeteer": "^5.4.2",
+    "axios": "^0.21.1",
     "core-js": "^3.8.1",
+    "normalize.css": "^8.0.1",
+    "puppeteer": "^5.5.0",
     "vue": "^3.0.4"
   },
   "devDependencies": {
