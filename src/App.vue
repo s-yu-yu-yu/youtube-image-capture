@@ -75,7 +75,7 @@ export default defineComponent({
       loading.value = false
 
       if (bannerUrl) {
-        window.open(bannerUrl, '_blank', 'noreferrer')
+        window.open(bannerUrl.url)
       }
     }
 
@@ -97,7 +97,7 @@ export default defineComponent({
       loading.value = false
 
       if (bannerUrl) {
-        window.open(bannerUrl, '_blank', 'noreferrer')
+        window.open(bannerUrl.url)
       }
     }
 

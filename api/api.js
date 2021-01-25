@@ -32,11 +32,7 @@ router.get('/thumbnail', async (req, res, next) => {
     res.sendStatus(400)
   } else {
     try {
-      const browser = await puppeteer.launch({
-        slowMo: 500,
-        browser: true,
-        devtools: true
-      })
+      const browser = await puppeteer.launch()
       const page = (await browser.pages())[0]
       await page.goto(req.query.url, {
         waitUntil: 'domcontentloaded'
