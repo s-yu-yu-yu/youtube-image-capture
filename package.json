@@ -4,9 +4,10 @@
   "private": true,
   "author": "S_yu_yu_yu",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "start": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "heroku-postbuild": "yarn build"
   },
   "dependencies": {
     "@types/puppeteer": "^5.4.2",
