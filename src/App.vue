@@ -1,4 +1,5 @@
 <template>
+  <OverlayLoading v-if="loading" />
   <TheHeader />
 
   <div class="container">
@@ -10,7 +11,7 @@
       <FormText
         placeholder="placeholder"
         @input="(text) => bannerText = text"
-        @enter="captureBanner(bannerText)"
+        @enter="captureBannerImage(bannerText)"
       />
     </div>
 
@@ -21,34 +22,93 @@
       </p>
       <FormText
         placeholder="placeholder"
+        @input="(text) => thumbnailText = text"
+        @enter="captureThumbnailImage(thumbnailText)"
       />
     </div>
   </div>
+
+  <ErrorSnackBar :error-message="errorMessage" @close="errorMessage = ''"/>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
 import 'normalize.css'
 
+import OverlayLoading from './components/OverlayLoading.vue'
 import TheHeader from './components/TheHeader.vue'
 import FormText from './components/FormText.vue'
+import ErrorSnackBar from './components/ErrorSnackBar.vue'
 
-import { captureBanner } from './utils/capture'
+import { captureBanner, captureThumbnail } from './utils/capture'
 
 export default defineComponent({
   name: 'App',
   components: {
+    OverlayLoading,
     TheHeader,
-    FormText
+    FormText,
+    ErrorSnackBar
   },
 
   setup () {
+    const { loading } = toRefs(reactive({ loading: false }))
+    const { errorMessage } = toRefs(reactive({ errorMessage: '' }))
+
     const bannerText = ''
+    const thumbnailText = ''
+
+    const captureBannerImage = async (url: string) => {
+      if (!url) { return }
+      loading.value = true
+      const bannerUrl = await captureBanner(url)
+        .catch((error) => {
+          if (error.response.status === 400) {
+            errorMessage.value = 'YouTubeチャンネルのURLではありません'
+          } else if (error.response.status === 404) {
+            errorMessage.value = '画像が見つかりませんでした'
+          } else {
+            errorMessage.value = 'エラーが発生しました'
+          }
+          setTimeout(() => { errorMessage.value = '' }, 3000)
+        })
+      loading.value = false
+
+      if (bannerUrl) {
+        window.open(bannerUrl, '_blank', 'noreferrer')
+      }
+    }
+
+    const captureThumbnailImage = async (url: string) => {
+      if (!url) { return }
+      loading.value = true
+      const bannerUrl = await captureThumbnail(url)
+        .catch((error) => {
+          console.error(error)
+          if (error.response.status === 400) {
+            errorMessage.value = 'YouTube動画のURLではありません'
+          } else if (error.response.status === 404) {
+            errorMessage.value = '画像が見つかりませんでした'
+          } else {
+            errorMessage.value = 'エラーが発生しました'
+          }
+          setTimeout(() => { errorMessage.value = '' }, 3000)
+        })
+      loading.value = false
+
+      if (bannerUrl) {
+        window.open(bannerUrl, '_blank', 'noreferrer')
+      }
+    }
 
     return {
+      loading,
+      errorMessage,
       bannerText,
+      thumbnailText,
 
-      captureBanner
+      captureBannerImage,
+      captureThumbnailImage
     }
   }
 })
