@@ -4,12 +4,12 @@ const api = require('./api.js')
 
 const app = express()
 
-app.listen(4000, () => {
-  console.log('Running at port 4000')
+app.listen(process.env.PORT || 8080, () => {
+  console.log('Running')
 })
 
 app.use(cors({
-  origin: 'http://localhost:8080'
+  origin: 'https://s-yu-yu-yu.github.io/youtube-image-capture/'
 }))
 app.use('/api', api)
 
