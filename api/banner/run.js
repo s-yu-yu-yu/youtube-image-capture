@@ -12,6 +12,11 @@ async function run (url) {
   const bannerStyle = await page.$eval('ytd-c4-tabbed-header-renderer', item => {
     return item.style.cssText
   })
+
+  if (!bannerStyle) {
+    throw new Error()
+  }
+
   const bannerUrl = bannerStyle.replace('--yt-channel-banner:url(', '').replace(');', '').replace(/\\/g, '')
 
   browser.close()
