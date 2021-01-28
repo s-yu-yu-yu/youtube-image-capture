@@ -1,24 +1,5 @@
 # youtube-image-capture
+YouTubeのバナー画像とサムネイル画像を取得できるWebアプリ。
 
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# 開発構成図
+![開発構成図](https://user-images.githubusercontent.com/60059787/106025592-3e709700-610c-11eb-8af2-b1b83abbcb39.png)
