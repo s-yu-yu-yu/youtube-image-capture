@@ -9,7 +9,7 @@
         YouTubeチャンネルのURLからバナー画像を抽出します
       </p>
       <FormText
-        placeholder="placeholder"
+        placeholder="YouTubeチャンネルのURL"
         @input="(text) => bannerText = text"
         @enter="captureBannerImage(bannerText)"
       />
@@ -21,7 +21,7 @@
         YouTube動画のURLからサムネイル画像を抽出します
       </p>
       <FormText
-        placeholder="placeholder"
+        placeholder="YouTube動画のURL"
         @input="(text) => thumbnailText = text"
         @enter="captureThumbnailImage(thumbnailText)"
       />
