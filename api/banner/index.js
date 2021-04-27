@@ -7,6 +7,15 @@
 
 const run = require('./run.js')
 
+const youtubeUrl = [
+  // PCブラウザ用
+  /^https:\/\/www.youtube.com\/channel/,
+  // モバイルアプリ用
+  /^https:\/\/youtube.com\/channel/,
+  // モバイルブラウザ用
+  /^https:\/\/m.youtube.com\/channel/
+]
+
 exports.index = (req, res) => {
   res.set('Access-Control-Allow-Origin', 'https://youtube-image-capture.herokuapp.com')
   res.set('Access-Control-Allow-Methods', 'GET')
@@ -16,7 +25,7 @@ exports.index = (req, res) => {
     // Send response to OPTIONS requests
     res.status(204).send('ok')
   } else {
-    if (!/^https:\/\/www.youtube.com\/channel/.test(req.query.url)) {
+    if (!youtubeUrl.some(url => url.test(req.query.url))) {
       const err = new Error('BadRequest')
       res.status(400).send({ error: err })
     } else {
