@@ -14,7 +14,11 @@ async function run (url) {
 
   browser.close()
 
-  return thumbnailUrl
+  if (Array.isArray(thumbnailUrl)) {
+    return thumbnailUrl[0]
+  } else {
+    return thumbnailUrl
+  }
 }
 
 module.exports = run
